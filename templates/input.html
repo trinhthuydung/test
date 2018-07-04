@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Input</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#Allcheck').click(function () {
+                var isChecked = $(this).prop('checked');
+                $('#t01 tr:has(td)').find('input[type="checkbox"]').prop('checked', isChecked);
+            });
+            $('#t01 tr:has(td)').find('input[type="checkbox"]').click(function() {
+                var isChecked = $(this).prop("checked");
+                var isHeaderChecked = $("#Allcheck").prop("checked");
+                if (isChecked == false && isHeaderChecked) {
+                    $("#Allcheck").prop('checked', false);
+                }
+                else {
+                    $('#t01 tr:has(td)').find('input[type="checkbox"]').each(function() {
+                        if ($(this).prop("checked") == false)
+                            isChecked = false;
+                     });
+                    $("#Allcheck").prop('checked', isChecked);
+                }
+            });
+        })
+
+    </script>
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+<h1>Welcom to Login</h1>
+<label>Email or username</label><input type="text" name = "username"><br><br>
+<label>Password &emsp;&emsp;&emsp;&ensp;</label><input type="password" name="password"><br><br>
+<button type="submit" value="submit">Submit</button>
+<button type="submit" name ="_delete">Delete</button>
+<button type="submit" name ="_edit">Edit</button>
+{% if error.exist1 %}
+{{ error.exist1 }}
+{% endif %}<br>
+
+<table id="t01" cellspacing="1px" border="1px" width="500px" style="text-align: center">
+    <tr>
+        <td><input type="checkbox" id="Allcheck"> </td>
+        <td>Username</td>
+        <td>Email</td>
+        <td>Password</td>
+    </tr>
+    {% for data in a %}
+    <tr>
+        <td><input type="checkbox" name="{{ data.id }}"></td>
+{#        <td>{{ data.id }}</td>#}
+        <td>{{ data.username }}</td>
+        <td>{{ data.email }}</td>
+        <td>{{ data.password }}</td>
+    </tr>
+    {% endfor %}
+
+</table><br>
+
+
+</form>
+</body>
+</html>

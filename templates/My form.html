@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Myform</title>
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+<h1>My Form</h1>
+<table cellspacing="1px" border="1px" width="500px" style="text-align: center">
+    <tr>
+        <td>Name</td>
+        <td>Address</td>
+        <td>Phone</td>
+        <td>Job</td>
+    </tr>
+    <tr>
+        <td><input type="text" name="name"></td>
+        <td><input type="text" name="address"></td>
+        <td><input type="text" name="phone"></td>
+        <td><input type="text" name="job"></td>
+    </tr>
+</table>
+<button type="submit" name="add" style="margin-top: 10px;margin-bottom: 10px;margin-left: 300px; ">Add</button>
+<button type="submit" name="delete">Delete</button>
+<button type="submit" name="edit">Edit</button>
+
+
+<table cellspacing="1px" border="1px" width="500px" style="text-align: center; width: 720px">
+    <tr>
+        <td>Name</td>
+        <td>Address</td>
+        <td>Phone</td>
+        <td>Job</td>
+    </tr>
+    {% for data in load %}
+    <tr>
+        <td>{{ data.name }}</td>
+        <td>{{ data.address }}</td>
+        <td>{{ data.phone }}</td>
+        <td>{{ data.job }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</form>
+</body>
+</html>
